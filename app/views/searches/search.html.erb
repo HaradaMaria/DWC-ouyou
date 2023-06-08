@@ -1,0 +1,6 @@
+<h1>Books seargh for <%= @ward %></h1>
+<% if @range == "User" %>
+<%= render 'users/index',users: @users %>
+<% elsif @range == "Book"%>
+<%= render 'books/index', books: @books%>
+<% end %>
