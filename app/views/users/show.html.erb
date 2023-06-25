@@ -9,6 +9,41 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
+      <h3>Created</h3>
+      <table class='table table-hover table-inverse'>
+        <tr>
+          <thead>
+            <th>昨日</th>
+            <th>今日</th>
+            <th>前日比</th>
+          </thead>  
+        </tr>
+        <tr>
+          <tbody>
+            <td><%= @yesterday_book.count %></td>
+            <td><%= @today_book.count %></td>
+            <td><%= @today_book.count - @yesterday_book.count %></td>
+          </tbody>
+        </tr>
+        </table>
+        
+        <table class='table table-hover table-inverse'>
+        <tr>
+          <thead>
+            <th>先週</th>
+            <th>今週</th>
+            <th>先週比</th>
+          </thead>
+        </tr>
+        <tr>
+          <tbody>
+            <td><%= @lastweek_book.count %></td>
+            <td><%= @week_book.count %></td>
+            <td><%= @week_book.count - @lastweek_book.count %></td>
+          </tbody>
+        </tr>
+      </table>
     </div>
   </div>
+
 </div>
