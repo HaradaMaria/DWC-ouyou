@@ -1,0 +1,126 @@
+
+    <h3>Created</h3>
+    <table class='table table-hover table-inverse'>
+      <tr>
+        <thead>
+          <th>昨日</th>
+          <th>今日</th>
+          <th>前日比</th>
+        </thead>
+      </tr>
+      <tr>
+        <tbody>
+          <td><%= @oneday_ago_book.count %></td>
+          <td><%= @today_book.count %></td>
+          <td><%= @today_book.count - @oneday_ago_book.count %>
+            <!--% if @oneday_ago_book.count == 0 %-->
+              <!--前日の投稿が0のため計算できません-->
+            <!--% else %>
+              <!--% @the_day_before =   @today_book.count / @oneday_ago_book.count.to_f  %-->
+              <!--%= (@the_day_before * 100).round %>%-->
+            <!--% end %-->
+          </td>
+        </tbody>
+      </tr>
+    </table>
+  
+    <table class='table table-hover table-inverse'>
+      <tr>
+        <thead>
+          <th>先週</th>
+          <th>今週</th>
+          <th>先週比</th>
+        </thead>
+      </tr>
+      <tr>
+        <tbody>
+          <td><%= @last_week_book.count %></td>
+          <td><%= @week_book.count %></td>
+          <td><%= @week_book.count - @last_week_book.count %>
+            <!--% if @lastweek_book.count == 0 %-->
+              <!--前週の投稿が0のため計算できません-->
+            <!--% else %-->
+              <!--% @the_week_before = @week_book.count / @last_week_book.count.to_f  %-->
+            <!--%= (@the_week_before * 100).round %>%-->
+            <!--% end %-->
+          </td>
+        </tbody>
+      </tr>
+    </table>
+  
+    <table class='table table-hover table-inverse'>
+      <tr>
+        <thead>
+          <th>6日前</th>
+          <th>5日前</th>
+          <th>4日前</th>
+          <th>3日前</th>
+          <th>2日前</th>
+          <th>1日前</th>
+          <th>今日</th>
+        </thead>
+      </tr>
+      <tr>
+        <tbody>
+          <td><%= @sixday_ago_book.count %></td>
+          <td><%= @fiveday_ago_book.count %></td>
+          <td><%= @fourday_ago_book.count %></td>
+          <td><%= @threeday_ago_book.count %></td>
+          <td><%= @twoday_ago_book.count %></td>
+          <td><%= @oneday_ago_book.count %></td>
+          <td><%= @today_book.count %></td>
+        </tbody>
+      </tr>
+    </table>
+    
+    <!--<script src="graph.js"></script>-->
+    <!--Chart.jsでグラフ化-->
+    <div>
+      <canvas id="myLineChart", class="width: 100%"></canvas>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+        $(document).on('turbolinks:load', function() {    //turbolinkの設定変更(documentはだめだった、windowでいけた)
+        //   document.write("<p>JavaScript テスト</p>");
+        // });
+      // /script>
+          let ctx = document.getElementById("myLineChart");    //A.グラフを表示するという関数を定義(id)
+          //ctxとは "canvas context" の略で、canvas要素の描画コンテキストを指している
+          let myLineChart = new Chart(ctx, {     //B.グラフの内容を決める関数を定義している
+            type: 'line',
+            data: {
+              labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '1日前', '今日'],    //横軸ラベル
+              datasets: [{
+                label: '投稿した本の数',    //系列名
+                data: [    //x軸データ
+                  <%= @sixday_ago_book.count %>,
+                  <%= @fiveday_ago_book.count %>,
+                  <%= @fourday_ago_book.count %>,
+                  <%= @threeday_ago_book.count %>,
+                  <%= @twoday_ago_book.count %>,
+                  <%= @oneday_ago_book.count %>,
+                  <%= @today_book.count %>
+                ],
+                borderColor: "#000080",    //線の色
+                tension: 0.2    //線の曲線度合い
+              }]
+            },
+            options: {
+              title: {    //グラフタイトル
+                display: true,    //表示するか否か
+                text: '直近7日間の投稿数推移'    //文面
+              },
+              responsive: true,    //画面サイズ変更に伴ってグラフのサイズ変更するか否か
+              backgroundColor: "#f000000",    //背景色
+              scales: {    //軸に対する設定
+                y:{    //y軸に対する設定
+                  min: 0,    //y軸の最小値
+                  max: 10    //y軸の最大値
+                },
+                x: {    //x軸に対する設定
+                }
+              }
+            }
+          });
+        });
+      </script>
+    </div>
