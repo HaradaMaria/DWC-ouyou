@@ -11,4 +11,6 @@ class SearchesController < ApplicationController
       @users = User.looks(params[:search],params[:ward])
     end
   end
+  
+  
 end

@@ -1,4 +1,6 @@
 class RelationshipsController < ApplicationController
+  
+  
   def create
     user = User.find(params[:user_id])
     favorite = current_user.relationships.new(followed_id: user.id)
@@ -13,6 +15,7 @@ class RelationshipsController < ApplicationController
     redirect_to request.referer
   end
 
+# フォロー・フォロワー数表示
   def followeds
     user = User.find(params[:user_id])
     @users = user.followeds

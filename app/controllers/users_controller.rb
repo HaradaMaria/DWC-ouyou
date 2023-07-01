@@ -5,6 +5,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
+    
     @today_book = @books.created_today
     @oneday_ago_book = @books.created_oneday_ago
     @twoday_ago_book = @books.created_twoday_ago
@@ -31,6 +32,15 @@ class UsersController < ApplicationController
     else
       render "edit"
     end
+  end
+
+  def date_count
+    @user = User.find(params[:user_id])
+     if params[:created_at].present?
+        @date_book = @user.books.where(created_at: params[:created_at].to_date.all_day)
+     else
+      # @date_book = @user.books.where(created_at: params[:created_at].to_date.all_day)
+     end
   end
 
   private
