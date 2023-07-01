@@ -38,8 +38,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
      if params[:created_at].present?
         @date_book = @user.books.where(created_at: params[:created_at].to_date.all_day)
-     else
-      # @date_book = @user.books.where(created_at: params[:created_at].to_date.all_day)
      end
   end
 

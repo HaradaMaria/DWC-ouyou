@@ -10,22 +10,16 @@
       <div class='col-md-8 offset-md-1'>
         <h2>Books</h2>
         <%= render 'books/index',books: @books %>
+        
+        <!--日付指定で検索し、投稿数を非同期通信で表示-->
         <h5>日付指定で検索</h5>
         <%= form_with url: user_date_count_path(@user), method: :get, local: false do|f| %>
-          <!--%= f.date_select :date %>-->
           <%= f.date_field :created_at %>
           <%= f.submit "検索", class: "btn btn-primary"%>
         <% end %>
-        <div id="date_book">
-          <% if @date_book.present?%>
-            <!--%= render 'users/date', date_book: @date_book %>-->
-            <!--<table>-->
-            <!--  <th>投稿数</th>-->
-            <!--  %= @date_book %></td>-->
-            <!--</table>-->
-          <% end %>
-        </div>
-
+        <div id="date_book"></div>
+        
+        <!--投稿数のデータ-->
         <%= render 'books_data',books: @books %>
       </div>
     </div>
